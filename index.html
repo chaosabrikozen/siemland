@@ -140,7 +140,7 @@ footer p { margin: 0; max-width: 38rem; }
       <h3>Log ingestion</h3>
       <p>Are the right logs arriving, complete and on time? The review checks for the problems found most often:</p>
       <ul class="examples">
-        <li>Clocks out of step: sources without proper time sync (NTP) or with the wrong time zone, and the time an event happened confused with the time the SIEM received it.</li>
+        <li>Clocks out of step: sources without proper time sync (NTP) or with the wrong time zone, and the time an event happened correlated with the time the SIEM received it.</li>
         <li>Sources gone quiet: servers and devices that stopped sending logs. This is more serious than usually admitted: the rules that depend on them stop triggering, and nothing warns anyone.</li>
         <li>Logs not parsed: events stored as raw text, or fields mapped wrongly, so rules cannot read them.</li>
         <li>Gaps: important systems never connected, or connected only in part.</li>
