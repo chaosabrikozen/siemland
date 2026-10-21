@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SIEMland | SIEM review and AI-enhanced SIEM</title>
+<meta name="description" content="Independent SIEM and SOC specialist. A fixed-price SIEM review, and AI-enhanced SIEM on your own Microsoft Sentinel and Defender.">
+<link rel="canonical" href="https://siemland.com/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #f7f8f7;
+  --ink: #15233a;
+  --muted: #5d6b7c;
+  --rule: #d8dde2;
+  --noise: #a9b3bf;
+  --signal: #b8730f;
+  --signal-bg: #fbf1df;
+  --panel: #ffffff;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #121a26;
+    --ink: #e7ebf0;
+    --muted: #9aa7b6;
+    --rule: #2b3646;
+    --noise: #4c5a6c;
+    --signal: #f0aa45;
+    --signal-bg: #2a2214;
+    --panel: #172131;
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Public Sans", system-ui, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+}
+.wrap { max-width: 44rem; margin: 0 auto; padding: 0 1.25rem; }
+
+header.hero { padding: 4rem 0 3rem; }
+.brand { font-weight: 700; font-size: 1.125rem; margin: 0 0 2.5rem; }
+h1 {
+  font-size: clamp(2.1rem, 6vw, 3.1rem);
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 1rem;
+  max-width: 16ch;
+}
+.lede { color: var(--muted); margin: 0 0 2.5rem; max-width: 34rem; }
+
+.log {
+  margin: 0;
+  padding: 1rem 0;
+  background: var(--panel);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.78rem;
+  line-height: 1.9;
+  overflow-x: auto;
+}
+.log span { display: block; padding: 0 1rem; white-space: pre; color: var(--noise); }
+.log span.hit {
+  color: var(--signal);
+  background: var(--signal-bg);
+  border-left: 3px solid var(--signal);
+  padding-left: calc(1rem - 3px);
+  font-weight: 500;
+}
+
+section { padding: 3rem 0; border-top: 1px solid var(--rule); }
+h2 { font-size: 1.6rem; line-height: 1.2; margin: 0 0 1rem; letter-spacing: -0.01em; }
+p { margin: 0 0 1rem; }
+.note { color: var(--muted); }
+
+dl.parts { margin: 1.5rem 0; }
+dl.parts dt { font-weight: 600; }
+dl.parts dd { margin: 0 0 1rem; }
+
+ul.examples { margin: 0.5rem 0 1.5rem; padding-left: 1.25rem; }
+ul.examples li { margin-bottom: 0.4rem; }
+ul.examples li::marker { color: var(--signal); }
+
+.contact h2 { margin-bottom: 1.25rem; }
+a.mail {
+  display: inline-block;
+  color: var(--paper);
+  background: var(--ink);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.75rem 1.25rem;
+  border-radius: 6px;
+}
+a.mail:hover { background: var(--signal); }
+a:focus-visible { outline: 3px solid var(--signal); outline-offset: 3px; }
+
+footer { padding: 2rem 0 3rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: 0.85rem; }
+footer p { margin: 0; max-width: 38rem; }
+
+@media (max-width: 30rem) {
+  header.hero { padding-top: 2.5rem; }
+  .log { font-size: 0.7rem; }
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="brand">SIEMland</p>
+    <h1>Make your SIEM catch what matters.</h1>
+    <p class="lede">Independent SIEM and SOC specialist. London and Bilbao. English, Spanish and Basque.</p>
+    <pre class="log" aria-hidden="true"><span>08:41:07  SigninLogs   j.ross      London</span><span>08:41:09  Firewall     allow       10.4.2.18:443</span><span>08:41:12  DeviceEvents FIN-LT-112  teams.exe</span><span>08:41:15  SigninLogs   a.moreno    Bilbao</span><span class="hit">08:41:16  SigninLogs   j.ross      Singapore</span><span>08:41:18  Firewall     allow       10.4.2.18:443</span><span>08:41:21  DeviceEvents FIN-LT-087  outlook.exe</span></pre>
+  </div>
+</header>
+
+<main>
+  <section id="siem-review">
+    <div class="wrap">
+      <h2>SIEM review</h2>
+      <p>A fixed-price review of your SIEM, in two parts:</p>
+      <dl class="parts">
+        <dt>Log ingestion</dt>
+        <dd>Are the right logs arriving, complete and on time?</dd>
+        <dt>Detection rules</dt>
+        <dd>Do your rules catch real attacks, and stay quiet the rest of the time?</dd>
+      </dl>
+      <p>You receive a written report with findings ranked by risk and a short list of fixes.</p>
+      <p class="note">The review covers the SIEM itself. It does not cover incident response or your analysts' work.</p>
+    </div>
+  </section>
+
+  <section id="ai-enhanced-siem">
+    <div class="wrap">
+      <h2>AI-enhanced SIEM</h2>
+      <p>A semi-automated SOC, built on your own Microsoft Sentinel and Defender. AI agents take the routine work, and your analysts keep every decision that matters.</p>
+      <p>Examples:</p>
+      <ul class="examples">
+        <li>Triage and enrich new incidents before an analyst opens them.</li>
+        <li>Handle phishing emails reported by staff.</li>
+        <li>Flag noisy detection rules and propose fixes.</li>
+        <li>Warn when a log source goes quiet.</li>
+      </ul>
+      <p>Everything runs in your tenant, under your control. There is no new platform to buy.</p>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="wrap">
+      <h2>About</h2>
+      <p>More than 25 years in SIEM and security operations, 11 of them in London, across financial, energy and communications organisations. References on request.</p>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="wrap">
+      <h2>Start with a short call, at no charge.</h2>
+      <a class="mail" href="mailto:hello@siemland.com">hello@siemland.com</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>SIEMland is a trading name of Rootwall.ai Ltd, registered in England and Wales, company number 12578817. Registered office: 200 Seymour Avenue, Morden, England, SM4 4QZ.</p>
+  </div>
+</footer>
+
+</body>
+</html>
