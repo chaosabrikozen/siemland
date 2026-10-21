@@ -111,6 +111,45 @@ a.mail {
 a.mail:hover { background: var(--signal); }
 a:focus-visible { outline: 3px solid var(--signal); outline-offset: 3px; }
 
+ul.checks li { margin-bottom: 0.9rem; }
+details.sample { margin-top: 0.35rem; }
+details.sample summary {
+  cursor: pointer;
+  color: var(--signal);
+  font-size: 0.9rem;
+  font-weight: 600;
+  width: fit-content;
+}
+details.sample summary:focus-visible { outline: 3px solid var(--signal); outline-offset: 2px; }
+details.sample[open] summary { margin-bottom: 0.5rem; }
+.sample-table {
+  overflow-x: auto;
+  background: var(--panel);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 0.6rem 0.75rem;
+}
+.sample-table table { border-collapse: collapse; font-size: 0.8rem; white-space: nowrap; }
+.sample-table th { text-align: left; font-weight: 700; text-transform: uppercase; font-size: 0.72rem; padding: 0.25rem 1rem 0.35rem 0; }
+.sample-table td { padding: 0.2rem 1rem 0.2rem 0; color: var(--muted); }
+.sample-table tr.flag td { color: var(--ink); }
+.sample-table tr.flag td:last-child { color: var(--signal); font-weight: 600; }
+.reading { font-size: 0.9rem; color: var(--muted); margin: 0.5rem 0 0; }
+table.matrix { font-size: 0.75rem; }
+table.matrix th.tac { vertical-align: bottom; padding: 0 0.2rem 0.4rem; text-transform: none; font-weight: 600; }
+table.matrix th.tac span { writing-mode: vertical-rl; transform: rotate(180deg); display: inline-block; max-height: 8rem; }
+table.matrix tbody th { text-transform: none; font-weight: 600; font-size: 0.75rem; padding-right: 0.6rem; }
+table.matrix td { text-align: center; min-width: 1.9rem; padding: 0.3rem 0.15rem; color: var(--ink); border: 1px solid var(--paper); }
+table.matrix td.h0 { background: transparent; }
+table.matrix td.h1 { background: color-mix(in srgb, var(--signal) 12%, transparent); }
+table.matrix td.h2 { background: color-mix(in srgb, var(--signal) 25%, transparent); }
+table.matrix td.h3 { background: color-mix(in srgb, var(--signal) 42%, transparent); }
+table.matrix td.h4 { background: color-mix(in srgb, var(--signal) 62%, transparent); font-weight: 600; }
+table.matrix td.tot { font-weight: 700; color: var(--ink); }
+table.matrix tr.totrow th, table.matrix tr.totrow td { border-top: 2px solid var(--rule); }
+@media (prefers-reduced-motion: no-preference) { details.sample[open] .sample-table { animation: reveal 160ms ease-out; } }
+@keyframes reveal { from { opacity: 0; transform: translateY(-3px); } to { opacity: 1; transform: none; } }
+
 footer { padding: 2rem 0 3rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: 0.85rem; }
 footer p { margin: 0; max-width: 38rem; }
 
@@ -139,21 +178,22 @@ footer p { margin: 0; max-width: 38rem; }
       <p>A fixed-price review of your SIEM, in two parts.</p>
       <h3>Log ingestion</h3>
       <p>Are the right logs arriving, complete and on time? The review checks for the problems found most often:</p>
-      <ul class="examples">
-        <li>Clocks out of step: sources without proper time sync (NTP) or with the wrong time zone, and the time an event happened correlated with the time the SIEM received it.</li>
-        <li>Sources gone quiet: servers and devices that stopped sending logs. This is more serious than usually admitted: the rules that depend on them stop triggering, and nothing warns anyone.</li>
-        <li>Logs not parsed: events in CEF over TCP, CEF over Syslog, plain Syslog, key/value pairs, JSON or vendor formats stored as raw text, or with fields mapped wrongly, so rules cannot read them.</li>
-        <li>Gaps: important systems never connected, or connected only in part.</li>
+      <ul class="examples checks">
+        <li>Clocks out of step: sources without proper time sync (NTP) or with the wrong time zone, and the time an event happened correlated with the time the SIEM received it.<details class="sample"><summary>Example from a report</summary><div class="sample-table"><table><thead><tr><th>SOURCE</th><th>EVENT TIME (UTC)</th><th>RECEIVED (UTC)</th><th>OFFSET</th></tr></thead><tbody><tr><td>fw-edge-01</td><td>08:41:02</td><td>08:41:03</td><td>1 s</td></tr><tr class="flag"><td>dc-02</td><td>07:41:05</td><td>08:41:06</td><td>1 h, time zone</td></tr><tr class="flag"><td>app-db-03</td><td>08:39:58</td><td>08:41:06</td><td>68 s, no NTP</td></tr></tbody></table></div></details></li>
+        <li>Sources gone quiet: servers and devices that stopped sending logs. This is more serious than usually admitted: the rules that depend on them stop triggering, and nothing warns anyone.<details class="sample"><summary>Example from a report</summary><div class="sample-table"><table><thead><tr><th>SOURCE</th><th>LAST EVENT</th><th>USUALLY SENDS</th><th>RULES AFFECTED</th></tr></thead><tbody><tr class="flag"><td>vpn-gw-01</td><td>6 days ago</td><td>every minute</td><td>14</td></tr><tr class="flag"><td>dc-07</td><td>19 hours ago</td><td>every second</td><td>9</td></tr><tr><td>proxy-01</td><td>2 minutes ago</td><td>every second</td><td>0</td></tr></tbody></table></div></details></li>
+        <li>Logs not parsed: events in CEF over TCP, CEF over Syslog, plain Syslog, key/value pairs, JSON or vendor formats stored as raw text, or with fields mapped wrongly, so rules cannot read them.<details class="sample"><summary>Example from a report</summary><div class="sample-table"><table><thead><tr><th>SOURCE</th><th>FORMAT</th><th>FIELDS PARSED</th><th>STATUS</th></tr></thead><tbody><tr><td>fw-edge-01</td><td>CEF over TCP</td><td>28 of 28</td><td>ok</td></tr><tr class="flag"><td>proxy-01</td><td>CEF over Syslog</td><td>4 of 31</td><td>mostly raw</td></tr><tr class="flag"><td>erp-app</td><td>key/value</td><td>0 of 22</td><td>raw text</td></tr></tbody></table></div></details></li>
+        <li>Gaps: important systems never connected, or connected only in part.<details class="sample"><summary>Example from a report</summary><div class="sample-table"><table><thead><tr><th>ASSET GROUP</th><th>IN SCOPE</th><th>SENDING</th><th>COVERAGE</th></tr></thead><tbody><tr class="flag"><td>Domain controllers</td><td>12</td><td>10</td><td>83%</td></tr><tr><td>Firewalls</td><td>6</td><td>6</td><td>100%</td></tr><tr class="flag"><td>Cloud subscriptions</td><td>9</td><td>4</td><td>44%</td></tr></tbody></table></div></details></li>
       </ul>
       <h3>Detection rules</h3>
       <p>Do your rules catch real attacks, and stay quiet the rest of the time?</p>
-      <ul class="examples">
-        <li>Silent rules that can never fire, because the data or field they depend on is missing.</li>
-        <li>Noisy rules that analysts learn to ignore.</li>
-        <li>Vendor default rules left untuned for your environment.</li>
-        <li>Coverage: which common attack techniques you can and cannot see, mapped to MITRE ATT&amp;CK.</li>
+      <ul class="examples checks">
+        <li>Silent rules that can never fire, because the data or field they depend on is missing.<details class="sample"><summary>Example from a report</summary><div class="sample-table"><table><thead><tr><th>RULE</th><th>DEPENDS ON</th><th>STATUS</th></tr></thead><tbody><tr class="flag"><td>VPN brute force</td><td>vpn-gw-01 logs</td><td>cannot fire, source quiet</td></tr><tr class="flag"><td>LSASS memory access</td><td>process access events</td><td>cannot fire, field missing</td></tr><tr><td>New admin account</td><td>domain controller logs</td><td>working</td></tr></tbody></table></div></details></li>
+        <li>Noisy rules that analysts learn to ignore.<details class="sample"><summary>Example from a report</summary><div class="sample-table"><table><thead><tr><th>RULE</th><th>ALERTS (30 DAYS)</th><th>CLOSED AS BENIGN</th></tr></thead><tbody><tr class="flag"><td>Sign-in outside office hours</td><td>1,240</td><td>98%</td></tr><tr class="flag"><td>Port scan detected</td><td>610</td><td>95%</td></tr><tr><td>Mailbox forwarding rule</td><td>12</td><td>25%</td></tr></tbody></table></div></details></li>
+        <li>Vendor default rules left untuned for your environment.<details class="sample"><summary>Example from a report</summary><div class="sample-table"><table><thead><tr><th>ENABLED RULES</th><th>COUNT</th><th>SHARE</th></tr></thead><tbody><tr class="flag"><td>Vendor default, never changed</td><td>171</td><td>80%</td></tr><tr><td>Vendor default, tuned</td><td>19</td><td>9%</td></tr><tr><td>Written for you</td><td>24</td><td>11%</td></tr></tbody></table></div></details></li>
+        <li>Coverage: which common attack techniques you can and cannot see, mapped to MITRE ATT&amp;CK.<details class="sample" open><summary>Example from a report</summary><div class="sample-table"><table class="matrix"><thead><tr><th></th><th class="tac"><span>Recon</span></th><th class="tac"><span>Resource dev.</span></th><th class="tac"><span>Initial access</span></th><th class="tac"><span>Execution</span></th><th class="tac"><span>Persistence</span></th><th class="tac"><span>Privilege esc.</span></th><th class="tac"><span>Defence evasion</span></th><th class="tac"><span>Credential access</span></th><th class="tac"><span>Discovery</span></th><th class="tac"><span>Lateral movement</span></th><th class="tac"><span>Collection</span></th><th class="tac"><span>Command &amp; control</span></th><th class="tac"><span>Exfiltration</span></th><th class="tac"><span>Impact</span></th><th>TOTAL</th></tr></thead><tbody><tr><th>Identity</th><td class="h0"></td><td class="h0"></td><td class="h3">9</td><td class="h0"></td><td class="h2">3</td><td class="h2">4</td><td class="h1">1</td><td class="h4">14</td><td class="h1">1</td><td class="h1">1</td><td class="h0"></td><td class="h0"></td><td class="h0"></td><td class="h1">1</td><td class="tot">34</td></tr><tr><th>Endpoint</th><td class="h0"></td><td class="h0"></td><td class="h1">2</td><td class="h4">11</td><td class="h3">6</td><td class="h2">5</td><td class="h2">4</td><td class="h3">8</td><td class="h2">3</td><td class="h1">2</td><td class="h1">1</td><td class="h1">1</td><td class="h0"></td><td class="h1">2</td><td class="tot">45</td></tr><tr><th>Network</th><td class="h1">2</td><td class="h0"></td><td class="h3">7</td><td class="h0"></td><td class="h0"></td><td class="h0"></td><td class="h1">1</td><td class="h1">1</td><td class="h1">2</td><td class="h1">1</td><td class="h0"></td><td class="h2">4</td><td class="h1">1</td><td class="h0"></td><td class="tot">19</td></tr><tr><th>Cloud</th><td class="h0"></td><td class="h0"></td><td class="h2">5</td><td class="h1">1</td><td class="h1">2</td><td class="h1">2</td><td class="h1">1</td><td class="h2">3</td><td class="h0"></td><td class="h0"></td><td class="h1">1</td><td class="h0"></td><td class="h1">1</td><td class="h1">1</td><td class="tot">17</td></tr><tr><th>Email</th><td class="h0"></td><td class="h0"></td><td class="h4">12</td><td class="h1">1</td><td class="h0"></td><td class="h0"></td><td class="h0"></td><td class="h1">1</td><td class="h0"></td><td class="h0"></td><td class="h0"></td><td class="h0"></td><td class="h0"></td><td class="h0"></td><td class="tot">14</td></tr><tr class="totrow"><th>TOTAL</th><td class="tot">2</td><td class="tot">0</td><td class="tot">35</td><td class="tot">13</td><td class="tot">11</td><td class="tot">11</td><td class="tot">7</td><td class="tot">27</td><td class="tot">6</td><td class="tot">4</td><td class="tot">2</td><td class="tot">5</td><td class="tot">2</td><td class="tot">4</td><td class="tot">129</td></tr></tbody></table></div><p class="reading">Reading: 62 of 129 rules (48%) watch initial access or credential access. Only 8 (6%) watch lateral movement, collection or exfiltration, the stages after an attacker is in.</p></details></li>
       </ul>
       <p class="note">Industry research finds around one in five SIEM rules can never fire (CardinalOps, 2024).</p>
+      <p class="note">Examples show the format only; names and figures are illustrative.</p>
       <p>You receive a written report with findings ranked by risk and a short list of fixes.</p>
       <p class="note">The review covers the SIEM itself. It does not cover incident response or your analysts' work.</p>
     </div>
