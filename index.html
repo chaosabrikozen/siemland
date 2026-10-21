@@ -68,6 +68,7 @@ h1 {
   overflow-x: auto;
 }
 .log span { display: block; padding: 0 1rem; white-space: pre; color: var(--noise); }
+.log span.head { color: var(--muted); border-bottom: 1px solid var(--rule); margin-bottom: 0.25rem; }
 .log span.hit {
   color: var(--signal);
   background: var(--signal-bg);
@@ -107,7 +108,7 @@ footer p { margin: 0; max-width: 38rem; }
 
 @media (max-width: 30rem) {
   header.hero { padding-top: 2.5rem; }
-  .log { font-size: 0.7rem; }
+  .log { font-size: 0.66rem; }
 }
 </style>
 </head>
@@ -118,7 +119,7 @@ footer p { margin: 0; max-width: 38rem; }
     <p class="brand">SIEMland</p>
     <h1>Make your SIEM catch what matters.</h1>
     <p class="lede">Independent SIEM and SOC specialist.</p>
-    <pre class="log" aria-hidden="true"><span>08:41:07  SigninLogs   j.ross      London</span><span>08:41:09  Firewall     allow       10.4.2.18:443</span><span>08:41:12  DeviceEvents FIN-LT-112  teams.exe</span><span>08:41:15  SigninLogs   a.moreno    New York</span><span class="hit">08:41:16  SigninLogs   j.ross      Singapore</span><span>08:41:18  Firewall     allow       10.4.2.18:443</span><span>08:41:21  DeviceEvents FIN-LT-087  outlook.exe</span></pre>
+    <pre class="log" aria-hidden="true"><span class="head">time      user      source_ip      location</span><span>08:41:07  j.ross    203.0.113.24   London, GB</span><span>08:41:09  a.moreno  198.51.100.7   Madrid, ES</span><span>08:41:11  d.chen    192.0.2.45     New York, US</span><span>08:41:13  l.costa   198.51.100.83  São Paulo, BR</span><span class="hit">08:41:16  j.ross    203.0.113.199  Singapore, SG</span><span>08:41:18  m.weber   192.0.2.130    Frankfurt, DE</span><span>08:41:21  a.moreno  198.51.100.7   Madrid, ES</span></pre>
   </div>
 </header>
 
