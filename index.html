@@ -89,6 +89,7 @@ h2 { font-size: 1.6rem; line-height: 1.2; margin: 0 0 1rem; letter-spacing: -0.0
 p { margin: 0 0 1rem; }
 .note { color: var(--muted); }
 
+h3 { font-size: 1.1rem; margin: 1.75rem 0 0.4rem; }
 dl.parts { margin: 1.5rem 0; }
 dl.parts dt { font-weight: 600; }
 dl.parts dd { margin: 0 0 1rem; }
@@ -135,13 +136,24 @@ footer p { margin: 0; max-width: 38rem; }
   <section id="siem-review">
     <div class="wrap">
       <h2>SIEM review</h2>
-      <p>A fixed-price review of your SIEM, in two parts:</p>
-      <dl class="parts">
-        <dt>Log ingestion</dt>
-        <dd>Are the right logs arriving, complete and on time?</dd>
-        <dt>Detection rules</dt>
-        <dd>Do your rules catch real attacks, and stay quiet the rest of the time?</dd>
-      </dl>
+      <p>A fixed-price review of your SIEM, in two parts.</p>
+      <h3>Log ingestion</h3>
+      <p>Are the right logs arriving, complete and on time? The review checks for the problems found most often:</p>
+      <ul class="examples">
+        <li>Clocks out of step: sources without proper time sync (NTP) or with the wrong time zone, so events land out of order.</li>
+        <li>Sources gone quiet: servers and devices that stopped sending logs, with nothing to warn anyone.</li>
+        <li>Logs not parsed: events stored as raw text, or fields mapped wrongly, so rules cannot read them.</li>
+        <li>Gaps: important systems never connected, or connected only in part.</li>
+      </ul>
+      <h3>Detection rules</h3>
+      <p>Do your rules catch real attacks, and stay quiet the rest of the time?</p>
+      <ul class="examples">
+        <li>Silent rules that can never fire, because the data or field they depend on is missing.</li>
+        <li>Noisy rules that analysts learn to ignore.</li>
+        <li>Vendor default rules left untuned for your environment.</li>
+        <li>Coverage: which common attack techniques you can and cannot see, mapped to MITRE ATT&amp;CK.</li>
+      </ul>
+      <p class="note">Industry research finds around one in five SIEM rules can never fire (CardinalOps, 2024).</p>
       <p>You receive a written report with findings ranked by risk and a short list of fixes.</p>
       <p class="note">The review covers the SIEM itself. It does not cover incident response or your analysts' work.</p>
     </div>
