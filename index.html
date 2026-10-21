@@ -142,7 +142,7 @@ footer p { margin: 0; max-width: 38rem; }
       <ul class="examples">
         <li>Clocks out of step: sources without proper time sync (NTP) or with the wrong time zone, and the time an event happened correlated with the time the SIEM received it.</li>
         <li>Sources gone quiet: servers and devices that stopped sending logs. This is more serious than usually admitted: the rules that depend on them stop triggering, and nothing warns anyone.</li>
-        <li>Logs not parsed: events in CEF, plain Syslog, key/value pairs, JSON or vendor formats stored as raw text, or with fields mapped wrongly, so rules cannot read them.</li>
+        <li>Logs not parsed: events in CEF over TCP, CEF over Syslog, plain Syslog, key/value pairs, JSON or vendor formats stored as raw text, or with fields mapped wrongly, so rules cannot read them.</li>
         <li>Gaps: important systems never connected, or connected only in part.</li>
       </ul>
       <h3>Detection rules</h3>
