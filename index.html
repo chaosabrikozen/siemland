@@ -56,26 +56,33 @@ h1 {
 }
 .lede { color: var(--muted); margin: 0 0 2.5rem; max-width: 34rem; }
 
-.log {
-  margin: 0;
-  padding: 1rem 0;
+.logs {
   background: var(--panel);
   border: 1px solid var(--rule);
   border-radius: 6px;
+  padding: 0.5rem 0 0.75rem;
   font-family: "IBM Plex Mono", ui-monospace, monospace;
-  font-size: 0.78rem;
-  line-height: 1.9;
-  overflow-x: auto;
+  font-size: 0.75rem;
 }
-.log span { display: block; padding: 0 1rem; white-space: pre; color: var(--noise); }
-.log span.head { color: var(--muted); border-bottom: 1px solid var(--rule); margin-bottom: 0.25rem; }
-.log span.hit {
+.logtable { overflow-x: auto; padding: 0 1rem 0 0.5rem; }
+.logtable + .logtable { border-top: 1px solid var(--rule); margin-top: 0.5rem; }
+.logname { margin: 0.6rem 0 0.25rem 0.5rem; color: var(--muted); font-weight: 500; }
+.logs table { border-collapse: collapse; white-space: nowrap; }
+.logs th {
+  text-align: left;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--ink);
+  padding: 0.2rem 1.25rem 0.2rem 0;
+}
+.logs td { color: var(--noise); padding: 0.1rem 1.25rem 0.1rem 0; }
+.logs tr.hit td {
   color: var(--signal);
   background: var(--signal-bg);
-  border-left: 3px solid var(--signal);
-  padding-left: calc(1rem - 3px);
   font-weight: 500;
 }
+.logs th:first-child, .logs td:first-child { padding-left: 0.5rem; }
+.logs tr.hit td:first-child { box-shadow: inset 3px 0 0 var(--signal); }
 
 section { padding: 3rem 0; border-top: 1px solid var(--rule); }
 h2 { font-size: 1.6rem; line-height: 1.2; margin: 0 0 1rem; letter-spacing: -0.01em; }
@@ -108,7 +115,8 @@ footer p { margin: 0; max-width: 38rem; }
 
 @media (max-width: 30rem) {
   header.hero { padding-top: 2.5rem; }
-  .log { font-size: 0.66rem; }
+  .logs { font-size: 0.6rem; }
+  .logs th, .logs td { padding-right: 0.7rem; }
 }
 </style>
 </head>
@@ -119,7 +127,7 @@ footer p { margin: 0; max-width: 38rem; }
     <p class="brand">SIEMland</p>
     <h1>Make your SIEM catch what matters.</h1>
     <p class="lede">Independent SIEM and SOC specialist.</p>
-    <pre class="log" aria-hidden="true"><span class="head">time      user      source_ip      location</span><span>08:41:07  j.ross    203.0.113.24   London, GB</span><span>08:41:09  a.moreno  198.51.100.7   Madrid, ES</span><span>08:41:11  d.chen    192.0.2.45     New York, US</span><span>08:41:13  l.costa   198.51.100.83  São Paulo, BR</span><span class="hit">08:41:16  j.ross    203.0.113.199  Singapore, SG</span><span>08:41:18  m.weber   192.0.2.130    Frankfurt, DE</span><span>08:41:21  a.moreno  198.51.100.7   Madrid, ES</span></pre>
+    <div class="logs" aria-hidden="true"><div class="logtable"><p class="logname">Firewall</p><table><thead><tr><th>TIME (UTC)</th><th>SRC IP</th><th>SRC GEO</th><th>DST IP</th><th>DST GEO</th><th>PORT</th><th>ACTION</th></tr></thead><tbody><tr><td>08:41:02</td><td>203.0.113.24</td><td>GB</td><td>198.51.100.40</td><td>US</td><td>443</td><td>allow</td></tr><tr><td>08:41:05</td><td>192.0.2.17</td><td>ES</td><td>203.0.113.80</td><td>DE</td><td>443</td><td>allow</td></tr><tr><td>08:41:08</td><td>198.51.100.83</td><td>BR</td><td>192.0.2.200</td><td>GB</td><td>22</td><td>deny</td></tr></tbody></table></div><div class="logtable"><p class="logname">SigninLogs</p><table><thead><tr><th>TIME (UTC)</th><th>USER</th><th>SRC IP</th><th>SRC GEO</th><th>RESULT</th></tr></thead><tbody><tr><td>08:41:07</td><td>j.ross</td><td>203.0.113.24</td><td>London, GB</td><td>success</td></tr><tr><td>08:41:09</td><td>a.moreno</td><td>198.51.100.7</td><td>Madrid, ES</td><td>success</td></tr><tr><td>08:41:13</td><td>l.costa</td><td>198.51.100.83</td><td>São Paulo, BR</td><td>success</td></tr><tr class="hit"><td>08:41:16</td><td>j.ross</td><td>203.0.113.199</td><td>Singapore, SG</td><td>success</td></tr></tbody></table></div><div class="logtable"><p class="logname">DeviceProcessEvents</p><table><thead><tr><th>TIME (UTC)</th><th>HOST</th><th>USER</th><th>PROCESS</th><th>PARENT</th></tr></thead><tbody><tr><td>08:41:10</td><td>FIN-LT-087</td><td>a.moreno</td><td>outlook.exe</td><td>explorer.exe</td></tr><tr><td>08:41:14</td><td>FIN-LT-112</td><td>d.chen</td><td>teams.exe</td><td>explorer.exe</td></tr><tr><td>08:41:19</td><td>FIN-LT-112</td><td>d.chen</td><td>excel.exe</td><td>outlook.exe</td></tr></tbody></table></div></div>
   </div>
 </header>
 
